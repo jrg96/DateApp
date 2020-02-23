@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using DateApp.API.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DateApp.API.Data
 {
@@ -22,21 +23,41 @@ namespace DateApp.API.Data
             this.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-
+            
+            // Guardando cambios en la DB de manera asincrona
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-
+      
             return user;
         }
 
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            // Paso 0: obtener datos de la DB
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            // Paso 1: Obtener hash de la contraseña y corroborar si son las mismas
+            if (user != null)
+            {
+                if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                {
+                    return null;
+                }
+
+                return user;
+            }
+
+            return null;
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+            if (await _context.Users.AnyAsync(x => x.Username == username))
+            {
+                return false;
+            }
+
+            return true;
         }
 
 
@@ -54,6 +75,24 @@ namespace DateApp.API.Data
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
 
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using(var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
