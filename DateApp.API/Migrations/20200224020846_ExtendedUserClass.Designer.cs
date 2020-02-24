@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200224005916_ExtendedUserClass")]
+    [Migration("20200224020846_ExtendedUserClass")]
     partial class ExtendedUserClass
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,10 +52,13 @@ namespace DateApp.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Interests")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Introduction")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("KnownAs")
@@ -65,9 +68,6 @@ namespace DateApp.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LookingFor")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("MyProperty")
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("PasswordHash")

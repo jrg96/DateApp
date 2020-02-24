@@ -18,13 +18,19 @@ namespace DateApp.API.Migrations
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.AddColumn<DateTime>(
                 name: "DateOfBirth",
+                table: "Users",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<string>(
+                name: "Interests",
                 table: "Users",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Interests",
+                name: "Introduction",
                 table: "Users",
                 nullable: true);
 
@@ -43,12 +49,6 @@ namespace DateApp.API.Migrations
                 name: "LookingFor",
                 table: "Users",
                 nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "MyProperty",
-                table: "Users",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.CreateTable(
                 name: "Photos",
@@ -99,6 +99,10 @@ namespace DateApp.API.Migrations
                 table: "Users");
 
             migrationBuilder.DropColumn(
+                name: "Introduction",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
                 name: "KnownAs",
                 table: "Users");
 
@@ -108,10 +112,6 @@ namespace DateApp.API.Migrations
 
             migrationBuilder.DropColumn(
                 name: "LookingFor",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "MyProperty",
                 table: "Users");
         }
     }

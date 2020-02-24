@@ -50,10 +50,13 @@ namespace DateApp.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Interests")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Introduction")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("KnownAs")
@@ -63,9 +66,6 @@ namespace DateApp.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LookingFor")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("MyProperty")
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("PasswordHash")
