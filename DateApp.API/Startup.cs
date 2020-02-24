@@ -40,6 +40,7 @@ namespace DateApp.API
 
             // Preparando la clase de servicio para ser inyectada a futuro
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDateRepository, DateRepository>();
 
             // Configurando JWT middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
