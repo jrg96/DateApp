@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 // Habilitar formularios y servicios
 import { FormsModule } from '@angular/forms';
@@ -23,14 +26,12 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 // Componentes ngx-bootstrap
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import { MessagesComponent } from './messages/messages.component';
-import { MemberCardComponent } from './members/member-card/member-card.component';
+import { TabsModule } from 'ngx-bootstrap';
 
 // Habilitar Angular routing
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { JwtModule } from '@auth0/angular-jwt';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -61,7 +62,8 @@ export function tokenGetter() {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      TabsModule.forRoot()
    ],
    providers: [
       AuthService,
