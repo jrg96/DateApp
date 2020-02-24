@@ -12,6 +12,11 @@ namespace DateApp.API.Migrations
                 table: "Users",
                 nullable: true);
 
+            migrationBuilder.AddColumn<string>(
+                name: "Country",
+                table: "Users",
+                nullable: true);
+
             migrationBuilder.AddColumn<DateTime>(
                 name: "Created",
                 table: "Users",
@@ -58,6 +63,8 @@ namespace DateApp.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Url = table.Column<string>(nullable: true),
                     DateAdded = table.Column<DateTime>(nullable: false),
+                    IsMain = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -84,6 +91,10 @@ namespace DateApp.API.Migrations
 
             migrationBuilder.DropColumn(
                 name: "City",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
+                name: "Country",
                 table: "Users");
 
             migrationBuilder.DropColumn(

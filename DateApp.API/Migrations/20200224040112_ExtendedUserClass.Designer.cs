@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200224020846_ExtendedUserClass")]
+    [Migration("20200224040112_ExtendedUserClass")]
     partial class ExtendedUserClass
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,12 @@ namespace DateApp.API.Migrations
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
@@ -47,6 +53,9 @@ namespace DateApp.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")

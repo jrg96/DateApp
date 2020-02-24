@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using DateApp.API.Data;
 using DateApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -39,6 +40,7 @@ namespace DateApp.API
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(DateRepository).Assembly);
 
             // Preparando la clase de servicio para ser inyectada a futuro
             services.AddScoped<IAuthRepository, AuthRepository>();

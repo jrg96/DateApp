@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using DateApp.API.Data;
+using DateApp.API.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +14,11 @@ namespace DateApp.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IDateRepository _dateRepository;
-        
-        public UsersController(IDateRepository dateRepository)
+        private readonly IMapper _mapper;
+
+        public UsersController(IDateRepository dateRepository, IMapper mapper)
         {
+            this._mapper = mapper;
             this._dateRepository = dateRepository;
         }
 
@@ -22,8 +27,9 @@ namespace DateApp.API.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var users = await _dateRepository.GetUsers();
+            var usersToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
 
-            return Ok(users);
+            return Ok(usersToReturn);
         }
 
         // POST api/users/5
@@ -31,8 +37,9 @@ namespace DateApp.API.Controllers
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _dateRepository.GetUser(id);
+            var userToReturn = _mapper.Map<UserForDetailDTO>(user);
 
-            return Ok(user);
+            return Ok(userToReturn);
         }
     }
 }
