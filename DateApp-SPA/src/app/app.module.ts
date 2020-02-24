@@ -27,6 +27,7 @@ import { MessagesComponent } from './messages/messages.component';
 // Habilitar Angular routing
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { UserService } from './_services/user.service';
 
 @NgModule({
    declarations: [
@@ -49,6 +50,7 @@ import { appRoutes } from './routes';
    providers: [
       AuthService,
       AlertifyService,
+      UserService,
       ErrorInterceptorProvider
    ],
    bootstrap: [
