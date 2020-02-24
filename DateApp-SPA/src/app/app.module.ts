@@ -33,6 +33,10 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { JwtModule } from '@auth0/angular-jwt';
 
+// Resolvers para getter de datos
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
@@ -69,7 +73,9 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       UserService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      MemberDetailResolver,
+      MemberListResolver
    ],
    bootstrap: [
       AppComponent
