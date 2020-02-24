@@ -10,6 +10,8 @@ namespace DateApp.API.Models
 
         public DateTime DateAdded { get; set; }
 
-        
+        public User User { get; set; }
+
+        public int UserId { get; set; }
     }
 }

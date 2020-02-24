@@ -28,7 +28,7 @@ namespace DateApp.API.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -98,9 +98,11 @@ namespace DateApp.API.Migrations
 
             modelBuilder.Entity("DateApp.API.Models.Photo", b =>
                 {
-                    b.HasOne("DateApp.API.Models.User", null)
+                    b.HasOne("DateApp.API.Models.User", "User")
                         .WithMany("Photos")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
