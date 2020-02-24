@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using DateApp.API.Data;
@@ -40,6 +42,26 @@ namespace DateApp.API.Controllers
             var userToReturn = _mapper.Map<UserForDetailDTO>(user);
 
             return Ok(userToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDTO userForUpdateDTO) 
+        {
+            // 
+            if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _dateRepository.GetUser(id);
+            _mapper.Map(userForUpdateDTO, userFromRepo);
+
+            if (await _dateRepository.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception($"Error while updating user with id: {id}");
         }
     }
 }
